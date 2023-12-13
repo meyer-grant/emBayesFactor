@@ -92,12 +92,12 @@ Informed Bayesian \emph{t}-tests.
 \emph{The American Statistician}, \emph{74}(2), 137–143.
 
 Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023).
-\emph{On Bayes factors for Hypotheses Tests}.
+\emph{On Bayes Factors for Hypotheses Tests}.
 Manuscript in preparation.
 
 Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
-(2009). Bayesian t-tests for accepting and rejecting the null hypothesis.
-\emph{Psychonomic Bulletin & Review}, 16, 225-237
+(2009). Bayesian \emph{t}-tests for accepting and rejecting the null hypothesis.
+\emph{Psychonomic Bulletin & Review}, 16, 225-237.
 }
 \seealso{
 \link{integrate}, \link{t.test}, \link[BayesFactor]{ttestBF}

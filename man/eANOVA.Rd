@@ -93,7 +93,7 @@ eANOVA_FStat(
 }
 \references{
 Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023).
-\emph{On Bayes factors for Hypotheses Tests}. Manuscript in preparation.
+\emph{On Bayes Factors for Hypotheses Tests}. Manuscript in preparation.
 }
 \seealso{
 \link{integrate}, \link{aov}, \link[BayesFactor]{anovaBF}
