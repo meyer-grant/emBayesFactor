@@ -67,7 +67,7 @@
 #' Manuscript in preparation.
 #'
 #' Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
-#' (2009). Bayesian t-tests for accepting and rejecting the null hypothesis.
+#' (2009). Bayesian \emph{t}-tests for accepting and rejecting the null hypothesis.
 #' \emph{Psychonomic Bulletin & Review}, 16, 225-237.
 #'
 #' @author Constantin G. Meyer-Grant
