@@ -63,7 +63,7 @@
 #' \emph{The American Statistician}, \emph{74}(2), 137–143.
 #'
 #' Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023).
-#' \emph{On Bayes factors for Hypotheses Tests}.
+#' \emph{On Bayes Factors for Hypotheses Tests}.
 #' Manuscript in preparation.
 #'
 #' Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.

@@ -1,7 +1,7 @@
 Package: emBayesFactor
 Type: Package
 Title: Computing Effect-Size & Moment Bayes Factors
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
       person("Constantin G.", "Meyer-Grant", 
              email = "constantin.meyer-grant@psychologie.uni-freiburg.de", role = c("aut", "cre"),
