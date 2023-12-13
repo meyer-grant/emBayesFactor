@@ -1,0 +1,21 @@
+Package: emBayesFactor
+Type: Package
+Title: Computing Effect-Size & Moment Bayes Factors
+Version: 0.1.0
+Authors@R: c(
+      person("Constantin G.", "Meyer-Grant", 
+             email = "constantin.meyer-grant@psychologie.uni-freiburg.de", role = c("aut", "cre"),
+             comment = c(ORCID = "0000-0002-5991-6596")),
+      person("Karl Christoph", "Klauer", 
+             email = "klauer@psychologie.uni-freiburg.de", role = "aut")
+    )
+Description: This package provides functions for computing Bayes factors 
+    with effect-size and moment priors for one- and two-sample t tests, 
+    (multiple) linear regression models and analysis of variance (ANOVA). 
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    hypergeo,
+    stats
