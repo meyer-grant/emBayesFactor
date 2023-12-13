@@ -19,3 +19,5 @@ RoxygenNote: 7.2.3
 Imports: 
     hypergeo,
     stats
+URL: https://github.com/meyer-grant/emBayesFactor
+BugReports: https://github.com/meyer-grant/emBayesFactor/issues
