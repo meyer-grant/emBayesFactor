@@ -14,7 +14,7 @@ with effect-size and moment priors for one- and two-sample t tests,
 ## Installation
 
 ### Using `devtools`
-Make sure to install the [devtools](https://cran.r-project.org/web/packages/devtools/index.html) package
+Make sure to install the [`devtools`](https://cran.r-project.org/web/packages/devtools/index.html) package
 and the then execute command `devtools::install_github("meyer-grant/emBayesFactor")` in *R* 
 
 
