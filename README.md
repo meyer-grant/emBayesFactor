@@ -2,7 +2,7 @@
 
 
 # emBayesFactor
-Computing Effect-Size & Moment Bayes Factors
+Computing Effect-Size and Moment Bayes Factors
 
 
 ## Description

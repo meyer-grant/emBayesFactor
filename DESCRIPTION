@@ -1,6 +1,6 @@
 Package: emBayesFactor
 Type: Package
-Title: Computing Effect-Size & Moment Bayes Factors
+Title: Computing Effect-Size and Moment Bayes Factors
 Version: 0.1.1
 Authors@R: c(
       person("Constantin G.", "Meyer-Grant", 
