@@ -56,7 +56,8 @@ based on the observed test statistic \eqn{t}.
 The Bayes factor provided by \code{mttest}
 compares the alternative hypothesis with the null hypothesis
 that there is no true effect.
-\code{alternative = "greater"} denotes the alternative that
+
+Note that \code{alternative = "greater"} denotes the alternative that
 the true effect is positive, whereas \code{alternative = "less"}
 denotes the alternative that the true effect is negative.
 

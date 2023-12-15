@@ -61,9 +61,13 @@ based on the observed test statistic \eqn{t}.
 The Bayes factor provided by \code{ettest}
 compares the alternative hypothesis with the null hypothesis
 that there is no true effect.
-\code{alternative = "greater"} denotes the alternative that
+
+Note that \code{alternative = "greater"} denotes the alternative that
 the true effect is positive, whereas \code{alternative = "less"}
 denotes the alternative that the true effect is negative.
+Also note that in both cases (i.e., for one-sided tests)
+a single truncated \eqn{t} distribution is used as prior
+(see also Gronau & Wagenmakers, 2020).
 
 \code{Cohen_d} should only be negative if \code{alternative = "less"}.
 
