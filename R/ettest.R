@@ -143,7 +143,11 @@ ettest_tStat <- function(tStat, N1, N2 = NULL,
     if (nu <= 2) {
       stop("'nu' must be greater than two if 'rscale' is not specified")
     }
-    rscale <- sqrt(nu-2) / sqrt(nu) * abs(d)
+    if (is.infinite(nu)) {
+      rscale <- abs(d)
+    }else{
+      rscale <- sqrt(nu-2) / sqrt(nu) * abs(d)
+    }
   } else if (!is.numeric(rscale) || is.na(rscale)) {
     stop("'rscale' must be numeric")
   } else if (rscale <= 0) {

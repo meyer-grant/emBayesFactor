@@ -9,7 +9,6 @@
 #'
 #' @param eta2p observed partial coefficient of determination \eqn{{\eta}^2_p}.
 #' @param FStat observed value of \eqn{F} statistic.
-#' @param N number of observations.
 #' @param df_numer numerator degrees of freedom.
 #' @param df_denom denominator degrees of freedom.
 #' @param Cohen_f focused-on effect size (Cohen's \eqn{f}).
@@ -59,7 +58,6 @@
 #' ## Compute moment Bayes factor based on 'Fstat'
 #' mANOVA_FStat(
 #'   FStat = 16.73,
-#'   N = 40,
 #'   df_numer = 1,
 #'   df_denom = 36,
 #'   Cohen_f = "small"
@@ -68,7 +66,7 @@
 
 #' @rdname mANOVA
 #' @export
-mANOVA_eta2p <- function(eta2p, N, df_numer, df_denom,
+mANOVA_eta2p <- function(eta2p, df_numer, df_denom,
                          Cohen_f = c("medium", "small", "large"),
                          nu = 5) {
 
@@ -114,7 +112,7 @@ mANOVA_eta2p <- function(eta2p, N, df_numer, df_denom,
 
   FStat <- df_denom * eta2p / (df_numer - df_numer * eta2p)
 
-  z <- mANOVA_FStat(FStat=FStat, N=N, df_numer=df_numer, df_denom=df_denom,
+  z <- mANOVA_FStat(FStat=FStat, df_numer=df_numer, df_denom=df_denom,
                     Cohen_f=Cohen_f,
                     nu=nu)
 
@@ -136,7 +134,7 @@ mANOVA_eta2p <- function(eta2p, N, df_numer, df_denom,
 
 #' @rdname mANOVA
 #' @export
-mANOVA_FStat <- function(FStat, N, df_numer, df_denom,
+mANOVA_FStat <- function(FStat, df_numer, df_denom,
                          Cohen_f = c("medium", "small", "large"),
                          nu = 5) {
 
@@ -216,52 +214,45 @@ mANOVA_FStat <- function(FStat, N, df_numer, df_denom,
     }
   }
 
-  if (!is.numeric(N) || is.na(N)) {
-    stop("'N' must be an integer")
+  q <- df_numer
+  N_minus_p <- df_numer + df_denom
+
+  R2p <- FStat / ((N_minus_p - q) / q + FStat)
+
+  frsq <- (N_minus_p - q) / q * R2p / (1 - R2p)
+
+  if(!is.infinite(nu)){
+    hyper <- function(fsq,
+                      q,
+                      nu,
+                      f) {
+
+      temp <- f^2 * (nu + q - 2)/2
+
+      gamma((q + nu) / 2) / gamma(nu / 2) / gamma(q / 2) *
+        2 * (nu - 2) / q / (nu-2 + q) / f^2 *
+        fsq^(q/2) * temp^(nu/2) * (temp + fsq)^(-(nu+q)/2)
+
+    }
   } else {
-    if (!is.whole(N)) {
-      suppressWarnings(N <- as.integer(N))
-      if(is.na(N)){stop("'N' must be an integer")}
-      warning(paste("provided value for 'N' not an integer, 'N' =",
-                    as.character(N),
-                    "was used instead"))
-      if (df_denom + df_numer > N) {
-        stop("'N' must not be smaller than 'df_denom' + 'df_numer'")
-      }
-    } else {
-      if (df_denom + df_numer > N) {
-        stop("'N' must not be smaller than 'df_denom' + 'df_numer'")
-      }
+    hyper <- function(fsq,
+                      q,
+                      nu,
+                      f) {
+
+      (2 * exp(-(fsq / f^2)) * (f^2)^(-1 - q / 2) * fsq^(q / 2)) /
+        (q * gamma(q / 2))
+
     }
   }
 
-  q <- df_numer
-  p <- N - df_denom - q
-
-  R2p <- FStat / ((N - p - q) / q + FStat)
-
-  frsq <- (N-p-q) / q * R2p / (1-R2p)
-
-  hyper <- function(fsq,
-                    q,
-                    nu,
-                    f) {
-
-    temp <- f^2 * (nu + q - 2)/2
-
-    gamma((q + nu) / 2) / gamma(nu / 2) / gamma(q / 2) *
-      2 * (nu - 2) / q / (nu-2 + q) / f^2 *
-      fsq^(q/2) * temp^(nu/2) * (temp + fsq)^(-(nu+q)/2)
-
-  }
-
-  pseudoBayes <- Vectorize(function(fsq, N, p, q, frsq, nu, f_) {
+  pseudoBayes <- Vectorize(function(fsq, N_minus_p, q, frsq, nu, f_) {
 
     f <- f_
 
-    ncp <- (N-p) * fsq
+    ncp <- (N_minus_p) * fsq
 
-    out <- (df(frsq, q, N-p-q, ncp) / df(frsq, q, N-p-q, 0)) *
+    out <- (df(frsq, q, N_minus_p - q, ncp) / df(frsq, q, N_minus_p - q, 0)) *
       hyper(fsq, q=q, nu=nu, f=f)
 
     #out <- ifelse(is.infinite(out) | is.na(out) | is.nan(out), 0, out)
@@ -272,7 +263,7 @@ mANOVA_FStat <- function(FStat, N, df_numer, df_denom,
 
   suppressWarnings({
     z <- integrate(f=pseudoBayes,
-                   N=N, p=p, q=q, frsq=frsq, nu=nu, f_=f,
+                   N_minus_p=N_minus_p, q=q, frsq=frsq, nu=nu, f_=f,
                    lower=0, upper=Inf)
   })
 
@@ -296,6 +287,6 @@ mANOVA_FStat <- function(FStat, N, df_numer, df_denom,
 #' @usage NULL
 #' @order 0
 mANOVA_dummyFunctionName <-
-  function(eta2p, FStat, N, df_numer, df_denom,
+  function(eta2p, FStat, df_numer, df_denom,
            Cohen_f = c("medium", "small", "large"),
            nu = 5) { NULL }

@@ -9,7 +9,6 @@
 \usage{
 eANOVA_eta2p(
   eta2p,
-  N,
   df_numer,
   df_denom,
   Cohen_f = c("medium", "small", "large"),
@@ -19,7 +18,6 @@ eANOVA_eta2p(
 
 eANOVA_FStat(
   FStat,
-  N,
   df_numer,
   df_denom,
   Cohen_f = c("medium", "small", "large"),
@@ -31,8 +29,6 @@ eANOVA_FStat(
 \item{eta2p}{observed partial coefficient of determination \eqn{{\eta}^2_p}.}
 
 \item{FStat}{observed value of \eqn{F} statistic.}
-
-\item{N}{number of observations.}
 
 \item{df_numer}{numerator degrees of freedom.}
 
@@ -85,7 +81,6 @@ If \code{Cohen_f = 0}, \code{rscale} must be explicitly specified.
 ## Compute effect-size Bayes factor based on 'Fstat'
 eANOVA_FStat(
   FStat = 16.73,
-  N = 40,
   df_numer = 1,
   df_denom = 36,
   Cohen_f = "small"

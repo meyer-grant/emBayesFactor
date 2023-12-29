@@ -71,7 +71,7 @@
 #' ## Compute moment Bayes factor based on 'R2p'
 #' mreg_R2p(
 #'   R2p = R2p,
-#'   N=175,
+#'   N = 175,
 #'   p = 4,
 #'   k = 5,
 #'   Cohen_f2 = "large"
@@ -184,19 +184,30 @@ mreg_R2p <- function(
 
   frsq <- (N-p-q) / q * R2p / (1-R2p)
 
-  hyper <- function(fsq,
-                    q,
-                    nu,
-                    f) {
+  if(!is.infinite(nu)){
+    hyper <- function(fsq,
+                      q,
+                      nu,
+                      f) {
 
-    temp <- f^2 * (nu + q - 2)/2
+      temp <- f^2 * (nu + q - 2)/2
 
-    gamma((q + nu) / 2) / gamma(nu / 2) / gamma(q / 2) *
-      2 * (nu - 2) / q / (nu-2 + q) / f^2 *
-      fsq^(q/2) * temp^(nu/2) * (temp + fsq)^(-(nu+q)/2)
+      gamma((q + nu) / 2) / gamma(nu / 2) / gamma(q / 2) *
+        2 * (nu - 2) / q / (nu-2 + q) / f^2 *
+        fsq^(q/2) * temp^(nu/2) * (temp + fsq)^(-(nu+q)/2)
 
+    }
+  } else {
+    hyper <- function(fsq,
+                      q,
+                      nu,
+                      f) {
+
+      (2 * exp(-(fsq / f^2)) * (f^2)^(-1 - q / 2) * fsq^(q / 2)) /
+        (q * gamma(q / 2))
+
+    }
   }
-
 
   pseudoBayes <- Vectorize(function(fsq, N, p, q, frsq, nu, f_) {
 
@@ -298,9 +309,9 @@ mreg_FStat <- function(
     }
   }
 
-  df.numer <- k - p
-  df.denom <- N - k
-  R2p <- FStat * df.numer / (FStat * df.numer + df.denom)
+  df_numer <- k - p
+  df_denom <- N - k
+  R2p <- FStat * df_numer / (FStat * df_numer + df_denom)
 
   z <- mreg_R2p(R2p=R2p, N=N, k=k, p=p, Cohen_f2=Cohen_f2,
                 nu=nu)
@@ -423,15 +434,27 @@ mreg_tStat <- function(tStat, N, k,
 
   if (alternative == "two.sided") {
 
-    moment_dt <- Vectorize(function(d_, d, nu) {
+    if(!is.infinite(nu)){
+      moment_dt <- Vectorize(function(d_, d, nu) {
 
-      tausq <- d^2 * (nu-1) / 2 / nu
+        tausq <- d^2 * (nu-1) / 2 / nu
 
-      out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
 
-      return(out)
+        return(out)
 
-    }, "d_")
+      }, "d_")
+    } else {
+      moment_dt <- Vectorize(function(d_, d, nu) {
+
+        tausq <- d^2 / 2
+
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu)
+
+        return(out)
+
+      }, "d_")
+    }
 
     pseudoBayest <- Vectorize(function(d_, N, tStat, nu_t, d, nu) {
 
@@ -454,15 +477,27 @@ mreg_tStat <- function(tStat, N, k,
 
   } else if (alternative == "less") {
 
-    moment_dt <- Vectorize(function(d_, d, nu) {
+    if(!is.infinite(nu)){
+      moment_dt <- Vectorize(function(d_, d, nu) {
 
-      tausq <- d^2 * (nu-1) / 2 / nu
+        tausq <- d^2 * (nu-1) / 2 / nu
 
-      out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
 
-      return(out)
+        return(out)
 
-    }, "d_")
+      }, "d_")
+    } else {
+      moment_dt <- Vectorize(function(d_, d, nu) {
+
+        tausq <- d^2 / 2
+
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu)
+
+        return(out)
+
+      }, "d_")
+    }
 
     pseudoBayest <- Vectorize(function(d_, N, tStat, nu_t, d, nu) {
 
@@ -485,15 +520,27 @@ mreg_tStat <- function(tStat, N, k,
 
   } else if (alternative == "greater") {
 
-    moment_dt <- Vectorize(function(d_, d, nu) {
+    if(!is.infinite(nu)){
+      moment_dt <- Vectorize(function(d_, d, nu) {
 
-      tausq <- d^2 * (nu-1) / 2 / nu
+        tausq <- d^2 * (nu-1) / 2 / nu
 
-      out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
 
-      return(out)
+        return(out)
 
-    }, "d_")
+      }, "d_")
+    } else {
+      moment_dt <- Vectorize(function(d_, d, nu) {
+
+        tausq <- d^2 / 2
+
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu)
+
+        return(out)
+
+      }, "d_")
+    }
 
     pseudoBayest <- Vectorize(function(d_, N, tStat, nu_t, d, nu) {
 

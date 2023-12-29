@@ -9,7 +9,6 @@
 #'
 #' @param eta2p observed partial coefficient of determination \eqn{{\eta}^2_p}.
 #' @param FStat observed value of \eqn{F} statistic.
-#' @param N number of observations.
 #' @param df_numer numerator degrees of freedom.
 #' @param df_denom denominator degrees of freedom.
 #' @param Cohen_f focused-on effect size (Cohen's \eqn{f}).
@@ -65,7 +64,6 @@
 #' ## Compute effect-size Bayes factor based on 'Fstat'
 #' eANOVA_FStat(
 #'   FStat = 16.73,
-#'   N = 40,
 #'   df_numer = 1,
 #'   df_denom = 36,
 #'   Cohen_f = "small"
@@ -74,7 +72,7 @@
 
 #' @rdname eANOVA
 #' @export
-eANOVA_eta2p <- function(eta2p, N, df_numer, df_denom,
+eANOVA_eta2p <- function(eta2p, df_numer, df_denom,
                          Cohen_f = c("medium", "small", "large"),
                          rscale = NULL, nu = 3) {
 
@@ -120,7 +118,7 @@ eANOVA_eta2p <- function(eta2p, N, df_numer, df_denom,
 
   FStat <- df_denom * eta2p / (df_numer - df_numer * eta2p)
 
-  z <- eANOVA_FStat(FStat=FStat, N=N, df_numer=df_numer, df_denom=df_denom,
+  z <- eANOVA_FStat(FStat=FStat, df_numer=df_numer, df_denom=df_denom,
                     Cohen_f=Cohen_f,
                     rscale=rscale, nu=nu)
 
@@ -142,7 +140,7 @@ eANOVA_eta2p <- function(eta2p, N, df_numer, df_denom,
 
 #' @rdname eANOVA
 #' @export
-eANOVA_FStat <- function(FStat, N, df_numer, df_denom,
+eANOVA_FStat <- function(FStat, df_numer, df_denom,
                          Cohen_f = c("medium", "small", "large"),
                          rscale = NULL, nu = 3
 ) {
@@ -226,66 +224,65 @@ eANOVA_FStat <- function(FStat, N, df_numer, df_denom,
     }
   }
 
-  if (!is.numeric(N) || is.na(N)) {
-    stop("'N' must be an integer")
-  } else {
-    if (!is.whole(N)) {
-      suppressWarnings(N <- as.integer(N))
-      if(is.na(N)){stop("'N' must be an integer")}
-      warning(paste("provided value for 'N' not an integer, 'N' =",
-                    as.character(N),
-                    "was used instead"))
-      if (df_denom + df_numer > N) {
-        stop("'N' must not be smaller than 'df_denom' + 'df_numer'")
-      }
-    } else {
-      if (df_denom + df_numer > N) {
-        stop("'N' must not be smaller than 'df_denom' + 'df_numer'")
-      }
-    }
-  }
-
   q <- df_numer
-  p <- N - df_denom - q
+  N_minus_p <- df_numer + df_denom
 
   if (is.null(rscale)) {
     if (nu <= 2) {
       stop("'nu' must be greater than two if 'rscale' is not specified")
     }
-    rscale <- sqrt(nu-2) / sqrt(nu * q) * f
+    if (is.infinite(nu)) {
+      rscale <- f / sqrt(q)
+    }else{
+      rscale <- sqrt(nu-2) / sqrt(nu * q) * f
+    }
   } else if (!is.numeric(rscale) || is.na(rscale)) {
     stop("'rscale' must be numeric")
   } else if (rscale <= 0) {
     stop("'rscale' must be positive")
   }
 
-  R2p <- FStat / ((N - p - q) / q + FStat)
+  R2p <- FStat / ((N_minus_p - q) / q + FStat)
 
-  frsq <- (N-p-q) / q * R2p / (1-R2p)
+  frsq <- (N_minus_p - q) / q * R2p / (1 - R2p)
 
-  hyper <- function(fsq,
-                    p,
-                    q,
-                    nu,
-                    rscale,
-                    f) {
+  if(!is.infinite(nu)){
+    hyper <- function(fsq,
+                      q,
+                      nu,
+                      rscale,
+                      f) {
 
-    gamma((q + nu) / 2) / gamma(nu / 2) /gamma(q / 2) *
-      (nu * rscale^2)^(nu / 2) * fsq^(q / 2 - 1) *
-      (nu * rscale^2 + f^2 + fsq)^(-nu / 2 - q / 2) *
-      hypergeo::genhypergeo(c((nu + q) / 4, (2 + nu + q) / 4),
-                            q / 2, 4 * f^2 * fsq / (nu * rscale^2 + f^2 + fsq)^2)
+      gamma((q + nu) / 2) / gamma(nu / 2) /gamma(q / 2) *
+        (nu * rscale^2)^(nu / 2) * fsq^(q / 2 - 1) *
+        (nu * rscale^2 + f^2 + fsq)^(-nu / 2 - q / 2) *
+        hypergeo::genhypergeo(c((nu + q) / 4, (2 + nu + q) / 4),
+                              q / 2, 4 * f^2 * fsq / (nu * rscale^2 + f^2 + fsq)^2)
 
+    }
+  }else{
+    hyper <- function(fsq,
+                      q,
+                      nu,
+                      rscale,
+                      f) {
+
+      (2 * rscale^2)^(-(q / 2)) *
+        exp(-((fsq + f^2)/(2 * rscale^2)))* fsq^(-1 + q / 2) *
+        hypergeo::genhypergeo(U=NULL, L=q / 2, z=(fsq * f^2)/(4 *rscale^4)) /
+        gamma(q / 2)
+
+    }
   }
 
-  pseudoBayes <- Vectorize(function(fsq, N, p, q, frsq, nu, rscale, f_) {
+  pseudoBayes <- Vectorize(function(fsq, N_minus_p, q, frsq, nu, rscale, f_) {
 
     f <- f_
 
-    ncp <- (N-p) * fsq
+    ncp <- N_minus_p * fsq
 
-    out <- df(frsq, q, N-p-q, ncp) / df(frsq, q, N-p-q, 0) *
-      hyper(fsq, p=p, q=q, nu=nu, rscale=rscale, f=f)
+    out <- df(frsq, q, N_minus_p-q, ncp) / df(frsq, q, N_minus_p-q, 0) *
+      hyper(fsq, q=q, nu=nu, rscale=rscale, f=f)
 
     #out <- ifelse(is.infinite(out) | is.na(out) | is.nan(out), 0, out)
 
@@ -295,7 +292,7 @@ eANOVA_FStat <- function(FStat, N, df_numer, df_denom,
 
   suppressWarnings({
     z <- integrate(f=pseudoBayes,
-                   N=N, p=p, q=q, frsq=frsq, nu=nu, rscale=rscale, f_=f,
+                   N_minus_p=N_minus_p, q=q, frsq=frsq, nu=nu, rscale=rscale, f_=f,
                    lower=0, upper=Inf)
   })
 
@@ -319,6 +316,6 @@ eANOVA_FStat <- function(FStat, N, df_numer, df_denom,
 #' @usage NULL
 #' @order 0
 eANOVA_dummyFunctionName <-
-  function(eta2p, FStat, N, df_numer, df_denom,
+  function(eta2p, FStat, df_numer, df_denom,
            Cohen_f = c("medium", "small", "large"),
            rscale = NULL, nu = 3) { NULL }

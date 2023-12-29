@@ -18,7 +18,7 @@ Make sure to install the [`devtools`](https://cran.r-project.org/web/packages/de
 and the then execute command `devtools::install_github("meyer-grant/emBayesFactor")` in *R* 
 
 
-## Example
+## Examples
 For examples please check out the help files for the `emBayesFactor` package in *R* via the commands
 ```
 ?ettest

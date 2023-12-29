@@ -9,7 +9,6 @@
 \usage{
 mANOVA_eta2p(
   eta2p,
-  N,
   df_numer,
   df_denom,
   Cohen_f = c("medium", "small", "large"),
@@ -18,7 +17,6 @@ mANOVA_eta2p(
 
 mANOVA_FStat(
   FStat,
-  N,
   df_numer,
   df_denom,
   Cohen_f = c("medium", "small", "large"),
@@ -29,8 +27,6 @@ mANOVA_FStat(
 \item{eta2p}{observed partial coefficient of determination \eqn{{\eta}^2_p}.}
 
 \item{FStat}{observed value of \eqn{F} statistic.}
-
-\item{N}{number of observations.}
 
 \item{df_numer}{numerator degrees of freedom.}
 
@@ -77,7 +73,6 @@ that there is no true effect.
 ## Compute moment Bayes factor based on 'Fstat'
 mANOVA_FStat(
   FStat = 16.73,
-  N = 40,
   df_numer = 1,
   df_denom = 36,
   Cohen_f = "small"

@@ -76,7 +76,7 @@
 #' ## Compute effect-size Bayes factor based on 'R2p'
 #' ereg_R2p(
 #'   R2p = R2p,
-#'   N=175,
+#'   N = 175,
 #'   p = 4,
 #'   k = 5,
 #'   Cohen_f2 = "large"
@@ -178,7 +178,11 @@ ereg_R2p <- function(R2p, N, k, p,
     if (nu <= 2) {
       stop("'nu' must be greater than two if 'rscale' is not specified")
     }
-    rscale <- sqrt(nu-2) / sqrt(nu * q) * f
+    if (is.infinite(nu)) {
+      rscale <- f / sqrt(q)
+    }else{
+      rscale <- sqrt(nu-2) / sqrt(nu * q) * f
+    }
   } else if (!is.numeric(rscale) || is.na(rscale)) {
     stop("'rscale' must be numeric")
   } else if (rscale <= 0) {
@@ -204,19 +208,33 @@ ereg_R2p <- function(R2p, N, k, p,
 
   frsq <- (N-p-q) / q * R2p / (1-R2p)
 
-  hyper <- function(fsq,
-                    p,
-                    q,
-                    nu,
-                    rscale,
-                    f) {
+  if(!is.infinite(nu)){
+    hyper <- function(fsq,
+                      q,
+                      nu,
+                      rscale,
+                      f) {
 
-    gamma((q + nu) / 2) / gamma(nu / 2) /gamma(q / 2) *
-      (nu * rscale^2)^(nu / 2) * fsq^(q / 2 - 1) *
-      (nu * rscale^2 + f^2 + fsq)^(-nu / 2 - q / 2) *
-      hypergeo::genhypergeo(c((nu + q) / 4, (2 + nu + q) / 4),
-                            q / 2, 4 * f^2 * fsq / (nu * rscale^2 + f^2 + fsq)^2)
+      gamma((q + nu) / 2) / gamma(nu / 2) /gamma(q / 2) *
+        (nu * rscale^2)^(nu / 2) * fsq^(q / 2 - 1) *
+        (nu * rscale^2 + f^2 + fsq)^(-nu / 2 - q / 2) *
+        hypergeo::genhypergeo(c((nu + q) / 4, (2 + nu + q) / 4),
+                              q / 2, 4 * f^2 * fsq / (nu * rscale^2 + f^2 + fsq)^2)
 
+    }
+  }else{
+    hyper <- function(fsq,
+                      q,
+                      nu,
+                      rscale,
+                      f) {
+
+      (2 * rscale^2)^(-(q / 2)) *
+        exp(-((fsq + f^2)/(2 * rscale^2)))* fsq^(-1 + q / 2) *
+        hypergeo::genhypergeo(U=NULL, L=q / 2, z=(fsq * f^2)/(4 *rscale^4)) /
+        gamma(q / 2)
+
+    }
   }
 
   pseudoBayes <- Vectorize(function(fsq, N, p, q, frsq, nu, rscale, f_) {
@@ -226,7 +244,7 @@ ereg_R2p <- function(R2p, N, k, p,
     ncp <- (N-p) * fsq
 
     out <- df(frsq, q, N-p-q, ncp) / df(frsq, q, N-p-q, 0) *
-      hyper(fsq, p=p, q=q, nu=nu, rscale=rscale, f=f)
+      hyper(fsq, q=q, nu=nu, rscale=rscale, f=f)
 
     #out <- ifelse(is.infinite(out) | is.na(out) | is.nan(out), 0, out)
 
@@ -318,9 +336,9 @@ ereg_FStat <- function(FStat, N, k, p,
     }
   }
 
-  df.numer <- k - p
-  df.denom <- N - k
-  R2p <- FStat * df.numer / (FStat * df.numer + df.denom)
+  df_numer <- k - p
+  df_denom <- N - k
+  R2p <- FStat * df_numer / (FStat * df_numer + df_denom)
 
   z <- ereg_R2p(R2p=R2p, N=N, k=k, p=p, Cohen_f2=Cohen_f2,
                 rscale=rscale, nu=nu)
@@ -448,7 +466,11 @@ ereg_tStat <- function(tStat, N, k,
     if (nu <= 2) {
       stop("'nu' must be greater than two if 'rscale' is not specified")
     }
-    rscale <- sqrt(nu-2) / sqrt(nu) * abs(d)
+    if (is.infinite(nu)) {
+      rscale <- abs(d)
+    }else{
+      rscale <- sqrt(nu-2) / sqrt(nu) * abs(d)
+    }
   } else if (!is.numeric(rscale) || is.na(rscale)) {
     stop("'rscale' must be numeric")
   } else if (rscale <= 0) {

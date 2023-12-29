@@ -192,15 +192,27 @@ mttest_tStat <- function(tStat, N1, N2 = NULL,
       d = abs(d)
     }
 
-    moment_dt <- Vectorize(function(d_, d, nu) {
+    if(!is.infinite(nu)){
+      moment_dt <- Vectorize(function(d_, d, nu) {
 
-      tausq <- d^2 * (nu-1) / 2 / nu
+        tausq <- d^2 * (nu-1) / 2 / nu
 
-      out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
 
-      return(out)
+        return(out)
 
-    }, "d_")
+      }, "d_")
+    } else {
+      moment_dt <- Vectorize(function(d_, d, nu) {
+
+        tausq <- d^2 / 2
+
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu)
+
+        return(out)
+
+      }, "d_")
+    }
 
     pseudoBayest <- Vectorize(function(d_, N, tStat, nu_t, d, nu) {
 
@@ -227,15 +239,27 @@ mttest_tStat <- function(tStat, N1, N2 = NULL,
       warning("if 'alternative' is \"less\", 'Cohen_d' should not be positive")
     }
 
-    moment_dt <- Vectorize(function(d_, d, nu) {
+    if(!is.infinite(nu)){
+      moment_dt <- Vectorize(function(d_, d, nu) {
 
-      tausq <- d^2 * (nu-1) / 2 / nu
+        tausq <- d^2 * (nu-1) / 2 / nu
 
-      out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
 
-      return(out)
+        return(out)
 
-    }, "d_")
+      }, "d_")
+    } else {
+      moment_dt <- Vectorize(function(d_, d, nu) {
+
+        tausq <- d^2 / 2
+
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu)
+
+        return(out)
+
+      }, "d_")
+    }
 
     pseudoBayest <- Vectorize(function(d_, N, tStat, nu_t, d, nu) {
 
@@ -262,15 +286,27 @@ mttest_tStat <- function(tStat, N1, N2 = NULL,
       warning("if 'alternative' is \"greater\", 'Cohen_d' should not be negative")
     }
 
-    moment_dt <- Vectorize(function(d_, d, nu) {
+    if(!is.infinite(nu)){
+      moment_dt <- Vectorize(function(d_, d, nu) {
 
-      tausq <- d^2 * (nu-1) / 2 / nu
+        tausq <- d^2 * (nu-1) / 2 / nu
 
-      out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu) * (nu-2) / nu
 
-      return(out)
+        return(out)
 
-    }, "d_")
+      }, "d_")
+    } else {
+      moment_dt <- Vectorize(function(d_, d, nu) {
+
+        tausq <- d^2 / 2
+
+        out <- d_^2 / tausq^1.5 * dt(d_ / sqrt(tausq), nu)
+
+        return(out)
+
+      }, "d_")
+    }
 
     pseudoBayest <- Vectorize(function(d_, N, tStat, nu_t, d, nu) {
 

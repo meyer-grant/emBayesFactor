@@ -89,7 +89,7 @@ R2p <- (0.7109 - 0.5670) / (1.0 - 0.5670)
 ## Compute moment Bayes factor based on 'R2p'
 mreg_R2p(
   R2p = R2p,
-  N=175,
+  N = 175,
   p = 4,
   k = 5,
   Cohen_f2 = "large"
