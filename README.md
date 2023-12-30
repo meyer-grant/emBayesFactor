@@ -33,7 +33,7 @@ For examples please check out the help files for the `emBayesFactor` package in 
 ## Citation
 If you want to cite this package write:
 
-Meyer-Grant, C. G. & Klauer, K. C. (2023). emBayesFactor: Computing effect-size and moment Bayes factors \[R package\]. [https://github.com/meyer-grant/emBayesFactor](https://github.com/meyer-grant/emBayesFactor)
+Meyer-Grant, C. G. & Klauer, K. C. (2023). *emBayesFactor: Computing effect-size and moment Bayes factors* \[R package\]. [https://github.com/meyer-grant/emBayesFactor](https://github.com/meyer-grant/emBayesFactor)
 
 
 ## References
