@@ -37,7 +37,7 @@ Meyer-Grant, C. G. & Klauer, K. C. (2023). emBayesFactor: Computing effect-size 
 
 
 ## References
-Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023). On Bayes Factors for Hypotheses Tests. Manuscript in preparation.
+Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023). *On Bayes Factors for Hypotheses Tests*. Manuscript submitted for publication.
 
 Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2020).Informed Bayesian *t*-tests. *The American Statistician*, *74*(2), 137–143.
 

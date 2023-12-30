@@ -7,7 +7,9 @@ Authors@R: c(
              email = "constantin.meyer-grant@psychologie.uni-freiburg.de", role = c("aut", "cre"),
              comment = c(ORCID = "0000-0002-5991-6596")),
       person("Karl Christoph", "Klauer", 
-             email = "klauer@psychologie.uni-freiburg.de", role = "aut")
+             email = "klauer@psychologie.uni-freiburg.de", role = "aut"),
+      person("David", "Kellen", 
+             role = "ctb")
     )
 Description: This package provides functions for computing Bayes factors 
     with effect-size and moment priors for one- and two-sample t tests, 

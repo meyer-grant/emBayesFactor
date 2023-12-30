@@ -68,7 +68,7 @@
 #'
 #' Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023).
 #' \emph{On Bayes Factors for Hypotheses Tests}.
-#' Manuscript in preparation.
+#' Manuscript submitted for publication.
 #'
 #' Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
 #' (2009). Bayesian \emph{t}-tests for accepting and rejecting the null hypothesis.
