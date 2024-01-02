@@ -8,9 +8,23 @@
 \alias{mreg_tStat}
 \title{Moment Bayes Factors for (Multiple) Linear Regression}
 \usage{
-mreg_R2p(R2p, N, k, p, Cohen_f2 = c("medium", "small", "large"), nu = 5)
+mreg_R2p(
+  R2p,
+  N,
+  k,
+  p,
+  Cohen_f2 = c("medium", "small", "large"),
+  nu = 5 + (k - p)
+)
 
-mreg_FStat(FStat, N, k, p, Cohen_f2 = c("medium", "small", "large"), nu = 5)
+mreg_FStat(
+  FStat,
+  N,
+  k,
+  p,
+  Cohen_f2 = c("medium", "small", "large"),
+  nu = 5 + (k - p)
+)
 
 mreg_tStat(
   tStat,

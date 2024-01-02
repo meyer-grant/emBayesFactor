@@ -12,7 +12,7 @@ mANOVA_eta2p(
   df_numer,
   df_denom,
   Cohen_f = c("medium", "small", "large"),
-  nu = 5
+  nu = 5 + df_numer
 )
 
 mANOVA_FStat(
@@ -20,7 +20,7 @@ mANOVA_FStat(
   df_numer,
   df_denom,
   Cohen_f = c("medium", "small", "large"),
-  nu = 5
+  nu = 5 + df_numer
 )
 }
 \arguments{

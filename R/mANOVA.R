@@ -69,7 +69,11 @@
 #' @export
 mANOVA_eta2p <- function(eta2p, df_numer, df_denom,
                          Cohen_f = c("medium", "small", "large"),
-                         nu = 5) {
+                         nu = 5 + df_numer) {
+
+  if (missing(Cohen_f)) {
+    Cohen_f = NULL
+  }
 
   if (!is.numeric(eta2p) || is.na(eta2p)) {
     stop("'R2p' must be numeric")
@@ -137,7 +141,7 @@ mANOVA_eta2p <- function(eta2p, df_numer, df_denom,
 #' @export
 mANOVA_FStat <- function(FStat, df_numer, df_denom,
                          Cohen_f = c("medium", "small", "large"),
-                         nu = 5) {
+                         nu = 5 + df_numer) {
 
   if (!is.numeric(FStat) || is.na(FStat)) {
     stop("'FStat' must be numeric")
@@ -175,12 +179,6 @@ mANOVA_FStat <- function(FStat, df_numer, df_denom,
     }
   }
 
-  if (!is.numeric(nu) || is.na(nu)) {
-    stop("'nu' must be numeric")
-  } else if (nu <= 0) {
-    stop("'nu' must be greater than zero")
-  }
-
   is.whole <- function(x,
                        tol = .Machine$double.eps^0.5) {
     if(is.numeric(x)){
@@ -213,6 +211,12 @@ mANOVA_FStat <- function(FStat, df_numer, df_denom,
                     as.character(df_denom),
                     "was used instead"))
     }
+  }
+
+  if (!is.numeric(nu) || is.na(nu)) {
+    stop("'nu' must be numeric")
+  } else if (nu <= 0) {
+    stop("'nu' must be greater than zero")
   }
 
   q <- df_numer

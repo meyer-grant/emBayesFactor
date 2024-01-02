@@ -85,7 +85,7 @@
 mreg_R2p <- function(
     R2p, N, k, p,
     Cohen_f2 = c("medium", "small", "large"),
-    nu = 5) {
+    nu = 5 + (k - p)) {
 
   if (!is.numeric(R2p) || is.na(R2p)) {
     stop("'R2p' must be numeric")
@@ -123,12 +123,6 @@ mreg_R2p <- function(
                  "or alternatively set to one of the options",
                  "\"medium\", \"small\", or \"large\""))
     }
-  }
-
-  if (!is.numeric(nu) || is.na(nu)) {
-    stop("'nu' must be numeric")
-  } else if (nu < 3) {
-    stop("'nu' must at least be 3")
   }
 
   is.whole <- function(x,
@@ -184,6 +178,12 @@ mreg_R2p <- function(
   }
 
   frsq <- (N-p-q) / q * R2p / (1-R2p)
+
+  if (!is.numeric(nu) || is.na(nu)) {
+    stop("'nu' must be numeric")
+  } else if (nu < 3) {
+    stop("'nu' must at least be 3")
+  }
 
   if(!is.infinite(nu)){
     hyper <- function(fsq,
@@ -252,12 +252,16 @@ mreg_R2p <- function(
 mreg_FStat <- function(
     FStat, N, k, p,
     Cohen_f2 = c("medium", "small", "large"),
-    nu = 5) {
+    nu = 5 + (k - p)) {
 
   if (!is.numeric(FStat) || is.na(FStat)) {
     stop("'FStat' must be numeric")
   } else if (FStat < 0) {
     stop("'FStat' must not be negative")
+  }
+
+  if (missing(Cohen_f2)) {
+    Cohen_f2 = NULL
   }
 
   is.whole <- function(x,
