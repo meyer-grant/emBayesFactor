@@ -81,7 +81,7 @@ The default value specified in \link[BayesFactor]{ttestBF}
 is \eqn{1/\sqrt{2}}.
 }
 \examples{
-## Example from Klauer et al. (2023)
+## Example from Klauer et al. (2024)
 
 ## Compute effect-size Bayes factor based on 'tStat'
 ettest_tStat(
@@ -95,7 +95,7 @@ Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2020).
 Informed Bayesian \emph{t}-tests.
 \emph{The American Statistician}, \emph{74}(2), 137–143.
 
-Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023).
+Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2024).
 \emph{On Bayes Factors for Hypotheses Tests}.
 Manuscript submitted for publication.
 

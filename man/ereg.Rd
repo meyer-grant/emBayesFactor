@@ -104,7 +104,7 @@ If \code{rscale} is not specified, \code{nu} must be greater than 2.
 If \code{Cohen_f2 = 0}, \code{rscale} must be explicitly specified.
 }
 \examples{
-## Example from Klauer et al. (2023)
+## Example from Klauer et al. (2024)
 
 ## Compute partial R^2 from the two models' R^2
 R2p <- (0.7109 - 0.5670) / (1.0 - 0.5670)
@@ -119,7 +119,7 @@ ereg_R2p(
 )
 }
 \references{
-Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023).
+Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2024).
 \emph{On Bayes Factors for Hypotheses Tests}.
 Manuscript submitted for publication.
 }

@@ -41,7 +41,7 @@
 #'
 #'
 #' @references
-#' Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023).
+#' Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2024).
 #' \emph{On Bayes Factors for Hypotheses Tests}.
 #' Manuscript submitted for publication.
 #'
@@ -54,7 +54,7 @@
 #'
 #'
 #' @examples
-#' ## Example from Klauer et al. (2023)
+#' ## Example from Klauer et al. (2024)
 #'
 #' ## Compute moment Bayes factor based on 'Fstat'
 #' mANOVA_FStat(

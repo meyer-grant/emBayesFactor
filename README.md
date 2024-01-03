@@ -33,15 +33,15 @@ For examples please check out the help files for the `emBayesFactor` package in 
 ## Citation
 If you want to cite this package write:
 
-Meyer-Grant, C. G. & Klauer, K. C. (2023). *emBayesFactor: Computing effect-size and moment Bayes factors* \[R package\]. [https://github.com/meyer-grant/emBayesFactor](https://github.com/meyer-grant/emBayesFactor)
+Meyer-Grant, C. G. & Klauer, K. C. (2024). *emBayesFactor: Computing effect-size and moment Bayes factors* \[R package\]. [https://github.com/meyer-grant/emBayesFactor](https://github.com/meyer-grant/emBayesFactor)
 
 
 ## References
-Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2023). *On Bayes Factors for Hypotheses Tests*. Manuscript submitted for publication.
+Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2024). *On Bayes Factors for Hypotheses Tests*. Manuscript submitted for publication.
 
 Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2020).Informed Bayesian *t*-tests. *The American Statistician*, *74*(2), 137–143.
 
-Pramanik, S., & Johnson, V. E. (2022). Efficient alternatives for bayesian hypothesis tests in psychology. Advance online publication. *Psychological Methods*.
+Pramanik, S., & Johnson, V. E. (2022). Efficient alternatives for Bayesian hypothesis tests in psychology. Advance online publication. *Psychological Methods*.
 
 Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G. (2009). Bayesian *t*-tests for accepting and rejecting the null hypothesis. *Psychonomic Bulletin & Review*, *16*, 225-237.
 
