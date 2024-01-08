@@ -78,7 +78,7 @@ mttest_tStat(
 \references{
 Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2024).
 \emph{On Bayes Factors for Hypotheses Tests}.
-Manuscript submitted for publication.
+Manuscript submitted for publication. \href{https://doi.org/10.31234/osf.io/ykp29}{https://doi.org/10.31234/osf.io/ykp29}
 
 Pramanik, S., & Johnson, V. E. (2022).
 Efficient alternatives for bayesian hypothesis tests in psychology.
