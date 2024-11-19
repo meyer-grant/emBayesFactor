@@ -76,7 +76,7 @@ If \code{rscale} is not specified, \code{nu} must be greater than 2.
 If \code{Cohen_f = 0}, \code{rscale} must be explicitly specified.
 }
 \examples{
-## Example from Klauer et al. (2024)
+## Example from Klauer et al. (in press)
 
 ## Compute effect-size Bayes factor based on 'Fstat'
 eANOVA_FStat(
@@ -87,9 +87,10 @@ eANOVA_FStat(
 )
 }
 \references{
-Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2024).
-\emph{On Bayes Factors for Hypotheses Tests}.
-Manuscript submitted for publication. \href{https://doi.org/10.31234/osf.io/ykp29}{https://doi.org/10.31234/osf.io/ykp29}
+Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (in press).
+On Bayes Factors for Hypotheses Tests
+\emph{Psychonomic Bulletin & Review}.
+[PsyArXiv preprint: \href{https://doi.org/10.31234/osf.io/ykp29}{https://doi.org/10.31234/osf.io/ykp29}]
 }
 \seealso{
 \link{integrate}, \link{aov}, \link[BayesFactor]{anovaBF}

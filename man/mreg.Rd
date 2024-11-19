@@ -95,7 +95,7 @@ the presumed relationship between predictor and criterion is negative.
 \code{nu} must be at least 3.
 }
 \examples{
-## Example from Klauer et al. (2024)
+## Example from Klauer et al. (in press)
 
 ## Compute partial R^2 from the two models' R^2
 R2p <- (0.7109 - 0.5670) / (1.0 - 0.5670)
@@ -110,9 +110,10 @@ mreg_R2p(
 )
 }
 \references{
-Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2024).
-\emph{On Bayes Factors for Hypotheses Tests}.
-Manuscript submitted for publication. \href{https://doi.org/10.31234/osf.io/ykp29}{https://doi.org/10.31234/osf.io/ykp29}
+Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (in press).
+On Bayes Factors for Hypotheses Tests
+\emph{Psychonomic Bulletin & Review}.
+[PsyArXiv preprint: \href{https://doi.org/10.31234/osf.io/ykp29}{https://doi.org/10.31234/osf.io/ykp29}]
 }
 \seealso{
 \link{integrate}, \link{lm}, \link[BayesFactor]{regressionBF}

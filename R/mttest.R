@@ -49,13 +49,14 @@
 #' \item{alternative}{the specified alternative hypothesis}
 #'
 #' @references
-#' Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (2024).
-#' \emph{On Bayes Factors for Hypotheses Tests}.
-#' Manuscript submitted for publication. \href{https://doi.org/10.31234/osf.io/ykp29}{https://doi.org/10.31234/osf.io/ykp29}
+#' Klauer, K. C., Meyer-Grant, C. G., & Kellen, D (in press).
+#' On Bayes Factors for Hypotheses Tests
+#' \emph{Psychonomic Bulletin & Review}.
+#' \[PsyArXiv preprint: \href{https://doi.org/10.31234/osf.io/ykp29}{https://doi.org/10.31234/osf.io/ykp29}\]
 #'
-#' Pramanik, S., & Johnson, V. E. (2022).
-#' Efficient alternatives for bayesian hypothesis tests in psychology.
-#' Advance online publication. \emph{Psychological Methods}.
+#' Pramanik, S., & Johnson, V. E. (2024).
+#' Efficient alternatives for Bayesian hypothesis tests in psychology.
+#' \emph{Psychological Methods}, \emph{29}(2), 243–261.
 #'
 #' @author Constantin G. Meyer-Grant
 #' (\email{constantin.meyer-grant@psychologie.uni-freiburg.de})
@@ -65,7 +66,7 @@
 #' @export
 #'
 #' @examples
-#' ## Example from Klauer et al. (2024)
+#' ## Example from Klauer et al. (in press)
 #'
 #' ## Compute moment Bayes factor based on 'tStat'
 #' mttest_tStat(
